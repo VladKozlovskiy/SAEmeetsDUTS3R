@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
+import hydra
 from torch.utils.tensorboard import SummaryWriter
 from dust3r.model import AsymmetricCroCo3DStereo, inf  # noqa: F401, needed when loading the model
-from dust3r.datasets import get_data_loader  # noqa
+from dust3r.datasets import get_data_loader, build_dataset  # noqa
 
 from sae import SAE, TopKSAE
 
