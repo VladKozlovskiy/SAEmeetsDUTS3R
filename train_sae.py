@@ -5,7 +5,7 @@ from torch.utils.tensorboard import SummaryWriter
 from dust3r.model import AsymmetricCroCo3DStereo, inf  # noqa: F401, needed when loading the model
 from dust3r.datasets import get_data_loader, build_dataset  # noqa
 
-from sae import SAE, TopKSAE
+from sae import SAE, USAE
 
 def set_all_seeds(seed): 
     torch.manual_seed(seed)
@@ -14,7 +14,7 @@ def set_all_seeds(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-def load_duts3r(duts3r_ckpt_path): 
+def load_duts3r(duts3r_ckpt_path, device): 
     duts3r = AsymmetricCroCo3DStereo(patch_embed_cls='ManyAR_PatchEmbed')
     ckpt = torch.load(duts3r_ckpt_path, map_location=device)
     duts3r.load_state_dict(ckpt['model'], strict=False))
@@ -25,7 +25,15 @@ def load_duts3r(duts3r_ckpt_path):
 def train_sae(cfg): 
     
     
-    dataloader = build_dataset(cfg.train_dataset, cfg.batch_size, cfg.num_workers, test=False)
+    dataloader = get_data_loader(
+	cfg.train_dataset,
+        batch_size=cfg.batch_size,
+        num_workers=cfg.num_workers,
+        pin_mem=True,
+        shuffle=True,
+        drop_last=True
+    )
+
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     
     duts3r = load_duts3r(cfg.duts3r_ckpt_path)
@@ -56,7 +64,7 @@ def train_sae(cfg):
             
             optimizer.zero_grad()
             act_recon, act_encode = sae(act)
-            loss = recon_loss(act, act_recon) + cfg.reg_coeff * act_encode.sum()
+            loss = recon_loss(act, act_recon) + cfg.reg_coeff * act_encode.abs().sum()
             loss.backward() 
             optimizer.step()
 
@@ -73,5 +81,5 @@ def train_sae(cfg):
                 }, cfg.ckpt_path)
 
                 
-if name == '__main__': 
+if __name__ == '__main__': 
     train_sae()
