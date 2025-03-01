@@ -81,5 +81,5 @@ def train_sae(cfg):
                 }, cfg.ckpt_path)
 
                 
-if name == '__main__': 
+if __name__ == '__main__': 
     train_sae()
