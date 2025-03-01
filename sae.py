@@ -17,7 +17,7 @@ class SAE(nn.Module):
         recon = self.dec(self.act(enc))
         return enc, recon
 
-class TopKSAE(nn.Module): 
+class USAE(nn.Module): 
     """
     
     """
