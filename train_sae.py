@@ -57,14 +57,12 @@ def train_sae(cfg):
             with torch.inference_mode(): 
                 view1, view2 = batch
                 (shape1, shape2), (feat1, feat2), (pos1, pos2) = dust3r._encode_symmetrized(view1, view2)
-            print("infered") 
             act = torch.concat((feat1, feat2), dim=1)
             optimizer.zero_grad()
             act_encode, act_recon = sae(act)
             loss = recon_loss(act, act_recon) + cfg.reg_coeff * act_encode.abs().sum()
             loss.backward() 
             optimizer.step()
-            print("step")
 
             writer.add_scalar("Train/loss_iter", loss.item(),  glob_iter)
             writer.add_scalar("Train/epoch_iter", epoch_idx + 1, glob_iter)
