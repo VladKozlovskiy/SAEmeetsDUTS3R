@@ -3,9 +3,9 @@ sparsity_coeff : 4
 reg_coeff : 0.001
 num_epochs : 5
 ckpt_iter : 10
-ckpt_path : checkpoints
+ckpt_path : logs/log.pth
 log_path : logs
-duts3r_ckpt_path : duts3r_checkpoint
-train_dataset: 
+dust3r_ckpt_path : "checkpoints/DUSt3R_ViTLarge_BaseDecoder_224_linear.pth"
+train_dataset: "BlendedMVS(ROOT='data/blendedmvs_processed', resolution=224)" 
 batch_size : 8
 num_workers : 10
