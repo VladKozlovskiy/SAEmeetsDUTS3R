@@ -1,5 +1,3 @@
-Here's the full Markdown README file:
-
 # SAE Meets DUSt3R  
 
 ## Overview  
