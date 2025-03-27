@@ -28,7 +28,7 @@ Repository Structure
 ```
 📂 SAEmeetsDUTS3R
 ├── models/         # SAE and DUSt3R model definitions
-├── data/           # Scripts for dataset processing
+├── data/           # Datasets
 ├── results/        # Outputs and visualizations
 ├── requirements.txt # Dependencies
 └── README.md       # Project documentation
