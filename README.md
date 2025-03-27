@@ -10,31 +10,21 @@ This project explores the integration of **Sparse Autoencoders (SAE)** with **DU
 git clone https://github.com/VladKozlovskiy/SAEmeetsDUTS3R.git  
 cd SAEmeetsDUTS3R
 ```
-2. Install Dependencies
+### 2. Install Dependencies
    
 ```pip install -r requirements.txt```  
-Usage
 
-Run training and evaluation scripts:
-
-```
-python train_encoder_sae.py  # SAE on ViT encoder layer  
-python train_decoder_sae.py  # SAE on decoder layer  
-python analyze_results.py    # Visualize activated concepts  
-```
-
-Repository Structure
+### 3.Repository Structure
 
 ```
 📂 SAEmeetsDUTS3R
 ├── models/         # SAE and DUSt3R model definitions
 ├── data/           # Datasets
 ├── results/        # Outputs and visualizations
+├── scripts/        # SAE training script
 ├── requirements.txt # Dependencies
 └── README.md       # Project documentation
 ```
-
-You can find checkpoints via the link 
 
 We used Arkit & BlendedMVS for training, you shiuld load them on your own in the fromt origin DUST3R processe. 
 
